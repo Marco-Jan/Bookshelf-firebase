@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { db } from './firebaseInit'
-import { collection, onSnapshot,query, orderBy } from "firebase/firestore";
+import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 
 
 
 
-type TBook = {
+export type TBook = {
     id: string;
     title: string;
     author: string;
@@ -28,5 +28,10 @@ export default function useBooks() {
             );
         });
     }, []);
-    return [books]
+    const addBook = async (book: TBook) => {
+        console.log(book);
+
+    };
+    return [books, addBook]
 }
+

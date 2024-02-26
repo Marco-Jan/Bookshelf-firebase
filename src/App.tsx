@@ -8,6 +8,7 @@ import { Button, Grid, Container } from '@mui/material';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import './App.css';
 import Books from './firebase/Books';
+import Form from './firebase/Form';
 
 
 
@@ -79,6 +80,7 @@ export function App() {
           </ Grid>
         </Container>
       </main>
+      <Form open={open} handleClose={() => setOpen(false)} />
     </>
   );
 }
