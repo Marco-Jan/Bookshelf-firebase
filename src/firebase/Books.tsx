@@ -1,8 +1,9 @@
 import { Grid, Paper, Typography, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import AddPhotoAlternateIcon  from '@mui/icons-material/AddPhotoAlternate';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import useBooks from './useBooks';
+import { TBook } from './useBooks'
 
 const typoStyle = {
     pt: 2,
@@ -15,7 +16,7 @@ export default function BookCard() {
     return (
         <>
             {books &&
-                books.map((book) => {
+                (books as TBook[]).map((book) => {
                     return (
                         <Grid key={book.id} item xs={12} md={4}>
                             <Paper
