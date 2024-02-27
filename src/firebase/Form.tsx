@@ -4,20 +4,21 @@ import {
 } from '@mui/material';
 
 import { useState } from 'react';
-import useBooks, {TBook } from './useBooks';
+import useBooks, { TBook } from './useBooks';
 
 interface Props {
     open: boolean;
     handleClose: () => void;
 }
 
-export default function Form({ open, handleClose }: Props) {
+export default function Form({ open, handleClose}: Props) {
     const [formData, setFormData] = useState({
         title: '',
         author: '',
         pages: 0,
         read: false,
     });
+    
     const [, addBook] = useBooks();
 
     return (
@@ -34,6 +35,8 @@ export default function Form({ open, handleClose }: Props) {
                     type='text'
                     fullWidth
                     variant="standard"
+                    value={formData.title}
+                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 />
                 <TextField
                     required
@@ -43,6 +46,9 @@ export default function Form({ open, handleClose }: Props) {
                     type='text'
                     fullWidth
                     variant='standard'
+                    value={formData.author}
+                    onChange={(e) => setFormData({ ...formData, author: e.target.value })}
+
                 />
                 <TextField
                     required
@@ -52,12 +58,30 @@ export default function Form({ open, handleClose }: Props) {
                     type='number'
                     fullWidth
                     variant='standard'
+                    value={formData.pages}
+                    onChange={(e) => setFormData({ ...formData, pages: parseInt(e.target.value) })}
                 />
-                <FormControlLabel control={<Checkbox />} label="Read?" />
+                <FormControlLabel control={
+                    <Checkbox
+                        value={formData.read}
+                        onChange={(e) => setFormData({ ...formData, read: Boolean(e.target.value) })}
+                    />
+                } label="Read?" />
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose}>Cancel</Button>
-                <Button>Add Book</Button>
+                <Button
+                    onClick={() => {
+                        (addBook as (book: TBook) => Promise<void>)(formData as TBook);
+                        setFormData({
+                            title: '',
+                            author: '',
+                            pages: 0,
+                            read: false,
+                        });
+                        handleClose();
+                    }}
+                >Add Book</Button>
             </DialogActions>
         </Dialog>
     )
