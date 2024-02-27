@@ -41,18 +41,20 @@ export default function useBooks() {
         });
     };
 
-    const deleteBook = async (book: TBook) => {
+    const deleteBook = async (book: TBook) => { 
         await deleteDoc(doc(db, 'books', book.id));
-        if (book.imageURL) {
+        if(book.imageURL) {
             const imageREF = ref(storage, book.storageUri);
             await deleteObject(imageREF);
         }
     }
    
-    const updateBook = async (id: string, updatedData: TBook) => {
-        const bookRef = doc(db, 'books', id);
-        await updateDoc(bookRef, updatedData);
-    };
+    const editBook = async (book: TBook) => {
+        console.log('edit');
+        
+        const bookRef = doc(db, 'books', book.id);
+        await updateDoc(bookRef, book);
+      };;
 
     const addImage = async (
         event: ChangeEvent<HTMLInputElement>,
@@ -81,7 +83,7 @@ export default function useBooks() {
 
         }
     }
-    return [books, addBook, deleteBook, addImage, updateBook];
+    return [books, addBook, deleteBook, addImage, editBook];
 }
 
 

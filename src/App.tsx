@@ -9,6 +9,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import './App.css';
 import Books from './firebase/Books';
 import Form from './firebase/Form';
+import { TBook } from './firebase/useBooks';
 
 
 
@@ -16,6 +17,7 @@ export function App() {
 
   const [open, setOpen] = useState(false);
   const [user] = useAuthState(auth);
+  const [editingBook, setEditingBook] = useState<TBook | null>(null);
   const header = {
     height: '10vh',
     backgroundColor: '#fff',
@@ -25,6 +27,11 @@ export function App() {
     boxShadow: '2px, 2px, 3px gray',
     padding: '3px 5%',
   };
+
+  const handleEdit = (book: TBook) => {
+    setEditingBook(book);
+};
+
 
   return (
     <>

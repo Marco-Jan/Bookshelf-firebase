@@ -11,15 +11,23 @@ interface Props {
     handleClose: () => void;
 }
 
-export default function Form({ open, handleClose}: Props) {
+export default function Form({ open, handleClose }: Props) {
     const [formData, setFormData] = useState({
         title: '',
         author: '',
         pages: 0,
         read: false,
     });
-    
     const [, addBook] = useBooks();
+
+  /*   const [editFormData, setEditFormData] = useState({
+        title: bookToEdit?.title || '',
+        author: bookToEdit?.author || '',
+        pages: bookToEdit?.pages || 0,
+        read: bookToEdit?.read || false,
+      }); */
+
+    
 
     return (
         <Dialog open={open} onClose={handleClose}>
@@ -48,12 +56,11 @@ export default function Form({ open, handleClose}: Props) {
                     variant='standard'
                     value={formData.author}
                     onChange={(e) => setFormData({ ...formData, author: e.target.value })}
-
                 />
                 <TextField
                     required
                     margin='dense'
-                    id='Pages'
+                    id='pages'
                     label='Pages'
                     type='number'
                     fullWidth
@@ -82,7 +89,8 @@ export default function Form({ open, handleClose}: Props) {
                         handleClose();
                     }}
                 >Add Book</Button>
-            </DialogActions>
+                </DialogActions>
         </Dialog>
-    )
+    );
 }
+
